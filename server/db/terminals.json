@@ -1,0 +1,42 @@
+{
+  "data": [
+    {
+      "no": 1,
+      "status": "free",
+      "pumps": [
+        {
+          "no": 1,
+          "status": "free",
+          "product": "Diesel"
+        },
+        {
+          "no": 2,
+          "status": "busy",
+          "product": "Gas"
+        }
+      ]
+    },
+    {
+      "no": 2,
+      "status": "busy",
+      "pumps": [
+        {
+          "no": 1,
+          "status": "busy",
+          "product": "adBlue"
+        }
+      ]
+    },
+    {
+      "no": 3,
+      "status": "free",
+      "pumps": [
+        {
+          "no": 1,
+          "status": "busy",
+          "product": "Diesel"
+        }
+      ]
+    }
+  ]
+}

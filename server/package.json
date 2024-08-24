@@ -1,0 +1,21 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Testing API requests before connect with real server",
+  "scripts": {
+    "start": "concurrently \"nodemon servers/connect.js\" \"nodemon servers/tsm.js\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.2.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "nodemon": "^2.0.16",
+    "rxjs": "^7.5.5"
+  },
+  "devDependencies": {
+    "ts-node": "^10.8.0",
+    "typescript": "^4.7.2"
+  }
+}
