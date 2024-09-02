@@ -1,0 +1,9 @@
+{
+  "name": "projeto-programacao-com-frameworks-web",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npm start --prefix server",
+    "start:app": "npm start --prefix frontend",
+    "setup": "npm install && npm install --prefix server && npm install --prefix frontend"
+  }
+}
