@@ -9,12 +9,4 @@ function incBaseUrl(url: string): string {
   return prefix + url;
 }
 
-/** Function used to return Standard Error.
- * @param {string} message - Message to return.
- * @returns {{ error: boolean, error_text: string }}.
- */
-function sendError(message: string): { error: boolean; error_text: string } {
-  return { error: true, error_text: message };
-}
-
-export { incBaseUrl, sendError };
+export { incBaseUrl };

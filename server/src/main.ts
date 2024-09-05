@@ -1,19 +1,30 @@
-import dotenv from "dotenv";
-import express, { Application } from "express";
 import cors from "cors";
-import helloworld from "../src/Routes/helloworld";
-import * as utils from "./Utils/url";
+import express from "express";
+import userRoutes from "./routes/user.routes";
+import helloWorld from "./routes/helloworld";
+import Database from "./config/database";
+import { incBaseUrl } from "./utils/url";
 
-dotenv.config();
+class App {
+  public app: express.Application;
 
-const app: Application = express();
+  constructor() {
+    this.app = express();
+    this.config();
+    this.routes();
+    Database.connect();
+  }
 
-app.use(cors());
-app.use(express.json());
-app.use(utils.incBaseUrl("/helloworld"), helloworld);
+  private config(): void {
+    this.app.use(express.json());
+    this.app.use(cors());
+    this.app.use(express.urlencoded({ extended: false }));
+  }
 
-const port = process.env.PORTCONNECT || 3001;
+  private routes(): void {
+    this.app.use(incBaseUrl("/user"), userRoutes);
+    this.app.use(incBaseUrl("/hello"), helloWorld);
+  }
+}
 
-app.listen(port, () => {
-  console.log(`Express connected on port ${port}`);
-});
+export default new App().app;
