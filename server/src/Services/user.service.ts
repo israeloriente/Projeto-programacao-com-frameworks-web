@@ -1,14 +1,23 @@
-import { UserModel, IUser } from "../models/user.model";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { UserModel } from "../models/user.model"; // Seu modelo de usuário
 
-class UserService {
-  public async createUser(userData: IUser): Promise<IUser> {
-    const user = new UserModel(userData);
-    return await user.save();
+class AuthService {
+  private jwtSecret: string = process.env.JWT_SECRET || "your_jwt_secret_key";
+
+  public async registerUser(
+    name: string,
+    email: string,
+    password: string
+  ): Promise<{ token: string }> {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new UserModel({ name, email, password: hashedPassword });
+    await newUser.save();
+    const token = jwt.sign({ id: newUser._id }, this.jwtSecret, {
+      expiresIn: "1h",
+    });
+    return { token };
   }
-
-  // public async getUserByEmail(email: string): Promise<IUser | null> {
-  //   return await UserModel.findOne({ email });
-  // }
 }
 
-export default new UserService();
+export default new AuthService();

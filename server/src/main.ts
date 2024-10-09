@@ -1,9 +1,9 @@
 import cors from "cors";
 import express from "express";
 import userRoutes from "./routes/user.routes";
-import helloWorld from "./routes/helloworld";
 import Database from "./config/database";
 import { incBaseUrl } from "./utils/url";
+import Swagger from "./config/swagger";
 
 class App {
   public app: express.Application;
@@ -19,11 +19,11 @@ class App {
     this.app.use(express.json());
     this.app.use(cors());
     this.app.use(express.urlencoded({ extended: false }));
+    Swagger.setup(this.app);
   }
 
   private routes(): void {
     this.app.use(incBaseUrl("/user"), userRoutes);
-    this.app.use(incBaseUrl("/hello"), helloWorld);
   }
 }
 
