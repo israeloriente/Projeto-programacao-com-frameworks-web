@@ -1,3 +1,4 @@
+import { User } from "@/interfaces/User";
 import apiClient from "./apiClient";
 
 namespace UserAPI {
@@ -5,7 +6,7 @@ namespace UserAPI {
     return await apiClient.post("/user/login", { email, password });
   };
 
-  export const register = async (user: any) => {
+  export const register = async (user: User) => {
     return await apiClient.post("/user/register", user);
   };
 }

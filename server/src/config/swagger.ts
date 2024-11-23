@@ -37,7 +37,7 @@ class Swagger {
   private swaggerDocs = swaggerJsdoc(this.swaggerOptions);
 
   public setup(app: Application): void {
-    app.use("/api", swaggerUi.serve, swaggerUi.setup(this.swaggerDocs));
+    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(this.swaggerDocs));
   }
 }
 

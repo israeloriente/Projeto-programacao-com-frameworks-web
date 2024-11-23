@@ -31,7 +31,7 @@ class AuthController {
       }
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        res.status(400).json({ message: "Senha inválida" });
+        res.status(400).json({ message: "Username or password is incorrect" });
         return;
       }
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET || "", {
