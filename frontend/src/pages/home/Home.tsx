@@ -11,6 +11,8 @@ import { Moment } from "../../services/moment.service";
 import { ModalAppointment } from "./components/ModalAppointment";
 import { useNavigate } from "react-router-dom";
 import { Alert } from "../../components/global/Alert";
+import AboutUs from "./components/AboutUs";
+import Subscription from "./components/Subscription";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -57,13 +59,26 @@ const Home: React.FC = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
+
   const closeOnModal = () => {
     setShowAppointmentModal(false);
+  };
+
+  // Função para rolar até a seção desejada
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   };
 
   return (
     <div className="container">
       {showAppointmentModal && <ModalAppointment onClose={closeOnModal} />}
+
       {/* Header */}
       <header className="header">
         <div className="logo">
@@ -72,16 +87,22 @@ const Home: React.FC = () => {
         <nav>
           <ul className="nav-links">
             <li>
-              <a href="#home">Appointment</a>
+              <a href="#booking" onClick={() => scrollToSection("home")}>
+                Appointment
+              </a>
             </li>
             <li>
-              <a href="#about">About us</a>
+              <a href="#about" onClick={() => scrollToSection("about")}>
+                About us
+              </a>
             </li>
             <li>
-              <a href="#services">History</a>
-            </li>
-            <li>
-              <a href="#shop">Subscription</a>
+              <a
+                href="#subscription"
+                onClick={() => scrollToSection("subscription")}
+              >
+                Subscription
+              </a>
             </li>
           </ul>
         </nav>
@@ -96,15 +117,15 @@ const Home: React.FC = () => {
 
       {/* Main Section */}
       <main>
-        <section className="hero-section">
+        <section id="home" className="hero-section">
           <div>
             <img src={heroImage} alt="BroHouse Logo" />
             <h1>Make an appointment now</h1>
-            <p>Have a carrefour card? get a 30% discount!</p>
+            <p>Have a Carrefour card? Get a 30% discount!</p>
           </div>
         </section>
 
-        <section className="atmosphere-section">
+        <section id="booking" className="atmosphere-section">
           <div className="overlay">
             <h1>Booking Now</h1>
             <FullCalendar
@@ -122,6 +143,18 @@ const Home: React.FC = () => {
           <div className="atmosphere-image">
             <img src={TesteImage} alt="Barber Atmosphere" />
           </div>
+        </section>
+
+        {/* History Section */}
+        <section id="about" className="history-section">
+          <h2>AboutUs</h2>
+          <AboutUs></AboutUs>
+        </section>
+
+        {/* Subscription Section */}
+        <section id="subscription" className="subscription-section">
+          <h2>Subscription</h2>
+          <Subscription></Subscription>
         </section>
       </main>
     </div>
