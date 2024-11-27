@@ -8,15 +8,21 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { Moment } from "../../services/moment.service";
-import { ModalAppointment } from "./components/ModalAppointment";
+import ModalAppointment from "./modal/ModalAppointment";
 import { useNavigate } from "react-router-dom";
 import { Alert } from "../../components/global/Alert";
 import AboutUs from "./components/AboutUs";
 import Subscription from "./components/Subscription";
 
+interface IselectedDate {
+  startDate: Date;
+  endDate: Date;
+}
+
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [showAppointmentModal, setShowAppointmentModal] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<IselectedDate | null>(null);
 
   // Defina os eventos iniciais
   const [events, setEvents] = useState([
@@ -37,10 +43,13 @@ const Home: React.FC = () => {
       1
     );
     if (!hasOneHour) {
-      Alert.simpleAlert("Error", "The appointment must be at least 1 hour");
+      Alert.simpleAlert("Error", "The appointment must last exactly one hour");
       calendarApi.unselect();
       return;
-    } else setShowAppointmentModal(true);
+    } else {
+      setSelectedDate({ startDate: selectInfo.start, endDate: selectInfo.end });
+      setShowAppointmentModal(true);
+    }
 
     // if (title) {
     //   setEvents([
@@ -77,7 +86,13 @@ const Home: React.FC = () => {
 
   return (
     <div className="container">
-      {showAppointmentModal && <ModalAppointment onClose={closeOnModal} />}
+      {showAppointmentModal && (
+        <ModalAppointment
+          startDate={selectedDate?.startDate || new Date()}
+          endDate={selectedDate?.endDate || new Date()}
+          onClose={closeOnModal}
+        />
+      )}
 
       {/* Header */}
       <header className="header">
