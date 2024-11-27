@@ -108,9 +108,9 @@ const Home: React.FC = () => {
         </nav>
         <div className="nav-links">
           <li>
-            <a className="logout" href="#logout" onClick={logout}>
+            <p className="logout" onClick={logout}>
               Logout
-            </a>
+            </p>
           </li>
         </div>
       </header>
