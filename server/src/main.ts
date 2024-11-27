@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
 import userRoutes from "./routes/user.routes";
+import barberRoutes from "./routes/barber.routes";
 import Database from "./config/database";
 import { incBaseUrl } from "./utils/url";
 import Swagger from "./config/swagger";
@@ -24,6 +25,7 @@ class App {
 
   private routes(): void {
     this.app.use(incBaseUrl("/user"), userRoutes);
+    this.app.use(incBaseUrl("/barber"), barberRoutes);
   }
 }
 
