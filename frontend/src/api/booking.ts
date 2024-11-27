@@ -12,14 +12,16 @@ namespace BookingAPI {
       "YYYY-MM-DD|HH:mm"
     ).toDate();
 
-    return await apiClient.post("/booking", {
-      barberId: formData.barberId,
-      customerName: "João da Silva",
-      startDate: startDate,
-      endDate: endDate,
-      serviceId: formData.serviceId,
-    });
+    return (
+      await apiClient.post("/booking", {
+        barberId: formData.barberId,
+        customerName: "João da Silva",
+        startDate: startDate,
+        endDate: endDate,
+        serviceId: formData.serviceId,
+      })
+    ).data;
   };
 }
 
-export default BookingAPI;
+export default BookingAPI;
