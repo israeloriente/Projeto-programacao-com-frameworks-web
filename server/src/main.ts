@@ -3,6 +3,7 @@ import express from "express";
 import userRoutes from "./routes/user.routes";
 import barberRoutes from "./routes/barber.routes";
 import bookingRoutes from "./routes/booking.routes";
+import serviceRoutes from "./routes/service.routes";
 import Database from "./config/database";
 import { incBaseUrl } from "./utils/url";
 import Swagger from "./config/swagger";
@@ -28,6 +29,7 @@ class App {
     this.app.use(incBaseUrl("/user"), userRoutes);
     this.app.use(incBaseUrl("/barber"), barberRoutes);
     this.app.use(incBaseUrl("/booking"), bookingRoutes);
+    this.app.use(incBaseUrl("/service"), serviceRoutes);
   }
 }
 
