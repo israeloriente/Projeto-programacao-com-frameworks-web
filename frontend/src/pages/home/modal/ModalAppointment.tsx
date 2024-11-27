@@ -8,6 +8,7 @@ interface ModalProps {
   onClose: () => void;
   startDate: Date;
   endDate: Date;
+  onSubmit: (data: any) => void;
 }
 
 interface ModalState {
@@ -62,6 +63,7 @@ class ModalAppointment extends Component<ModalProps, ModalState> {
     BookingAPI.createBooking(this.state.formData).then((res) => {
       Alert.showToast("Booking created!", "success");
       this.props.onClose();
+      this.props.onSubmit(res);
     });
   }
 

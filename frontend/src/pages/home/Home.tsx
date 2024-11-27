@@ -18,21 +18,19 @@ interface IselectedDate {
   startDate: Date;
   endDate: Date;
 }
+interface Event {
+  title: string;
+  start: Date;
+  end: Date;
+  allDay: boolean;
+}
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [showAppointmentModal, setShowAppointmentModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState<IselectedDate | null>(null);
 
-  // Defina os eventos iniciais
-  const [events, setEvents] = useState([
-    {
-      title: "Barba",
-      start: "2024-09-22T12:00:00",
-      end: "2024-09-22T12:30:00",
-      allDay: false,
-    },
-  ]);
+  const [events, setEvents] = useState<Event[]>([]);
 
   // Função para lidar com a adição de um novo evento
   const openAppointmentModal = (selectInfo: any) => {
@@ -50,18 +48,6 @@ const Home: React.FC = () => {
       setSelectedDate({ startDate: selectInfo.start, endDate: selectInfo.end });
       setShowAppointmentModal(true);
     }
-
-    // if (title) {
-    //   setEvents([
-    //     ...events,
-    //     {
-    //       title,
-    //       start: selectInfo.startStr,
-    //       end: selectInfo.endStr,
-    //       allDay: selectInfo.allDay,
-    //     },
-    //   ]);
-    // }
   };
 
   const logout = () => {
@@ -84,6 +70,18 @@ const Home: React.FC = () => {
     }
   };
 
+  const setOnCalendar = (data: any) => {
+    setEvents([
+      ...events,
+      {
+        title: "Serviço reservado",
+        start: data.startDate,
+        end: data.endDate,
+        allDay: false,
+      },
+    ]);
+  };
+
   return (
     <div className="container">
       {showAppointmentModal && (
@@ -91,6 +89,7 @@ const Home: React.FC = () => {
           startDate={selectedDate?.startDate || new Date()}
           endDate={selectedDate?.endDate || new Date()}
           onClose={closeOnModal}
+          onSubmit={setOnCalendar}
         />
       )}
 
